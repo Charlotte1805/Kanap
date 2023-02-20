@@ -33,3 +33,27 @@ prodQuantity = document.getElementById('quantity')
 const 
 addToCartButton = document.getElementById('addToCart')
 
+
+fetch(`http://localhost:3000/api/products/${productId}`)
+
+    .then((res)
+=> 
+res.json())
+
+    .then((object)
+=> {
+
+
+
+        console.log (
+object )
+
+
+
+    })
+
+    .catch(function (err) {
+
+        console.log(err);
+
+    });

@@ -84,3 +84,34 @@ fetch(`http://localhost:3000/api/products/${productId}`)
         console.log(err);
 
     });
+
+function saveBasket(basket) {
+
+    if (!basket)
+
+        return 
+false;
+
+localStorage.setItem("basket", JSON.stringify(basket));
+
+}
+
+function getBasket() {
+
+    let 
+
+         basket = JSON.parse(localStorage.getItem("basket"));
+
+         if (basket === null) {
+
+         return [];
+
+         } else {
+
+         return 
+        
+         basket
+
+    }
+
+}

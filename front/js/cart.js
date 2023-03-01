@@ -129,3 +129,73 @@ function showCartItems() {
 };
 
 showCartItems()
+
+// Fonction totalCart() qui calcule les quantités commandées et le prix total du panier
+
+async 
+
+function totalCart() {
+
+    // Initilisation de variables
+
+    let nbProducts = 0
+
+    let totalPrice = 0
+
+    // Récupération des zones cibles à modifier
+
+    let cartQty = document.getElementById('totalQuantity')
+
+    let cartPrice = document.getElementById('totalPrice')
+
+    // On récupère le contenu du panier
+
+    let basket = getBasket()
+
+    // Pour chaque article du panier        
+
+    for ( 
+   
+         let product 
+
+         of basket ) {
+
+        // On appelle l'API pour récupérer le prix du produit
+
+        let productAPI = await 
+
+fetch("http://localhost:3000/api/products/" + product.id)
+
+                .then((res) => res.json())
+
+                .then((product) => {
+
+                    return product
+
+                })
+
+                .catch(function (err) {
+
+                    console.log(err);
+
+                });
+
+        // On incrément le nombre total de produit avec le nombre de produits commandés
+
+        nbProducts += parseInt( product.quantity )
+
+        // On incrément le montant total à payer
+
+        totalPrice += ( parseInt(product.quantity) * parseInt(productAPI.price) )
+
+    }
+
+    // On mets à jour les informations
+
+    cartQty.innerText = nbProducts
+
+    cartPrice.innerText = totalPrice
+
+}
+
+totalCart()

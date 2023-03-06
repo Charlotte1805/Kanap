@@ -199,3 +199,166 @@ fetch("http://localhost:3000/api/products/" + product.id)
 }
 
 totalCart()
+
+
+// Fonction checkQuantity(quantity) qui permet de vérifier la validité de la quantité passée en paramètre
+
+function checkQuantity(quantity) { 
+
+    if (!quantity || quantity <= 0 || quantity > 100)
+
+        alert( 'Quantité(s) saisie(s) incorrecte(s)' );
+
+    return 
+
+true
+
+}
+
+// Fonction manageEvents() qui permet de gérer les évènements JavaScript (change, click)
+
+function manageEvents() {
+
+    // Action pour champ quantité
+
+    // On récupère la liste des champs "quantité"
+
+    const inputsQuantity = document.querySelectorAll(".itemQuantity")
+
+    // Pour chaque champ input
+
+    for (let currentInput of inputsQuantity) {
+
+        // Au changement de valeur
+
+        currentInput.addEventListener("change", function () {
+
+            // On récupère la nouvelle quantité
+
+            let newQty = parseInt(this.value)
+
+            // On récupère le contenu du panier
+
+            let basket = getBasket()
+
+            // On récupère l'identifiant du produit que l'on veut modifier
+
+            let productId = this.closest(".cart__item").dataset.id
+
+            // On récupère la couleur du produit que l'on veut modifier
+
+            let productColor = this.closest(".cart__item").dataset.color
+
+            // On recherche si le produit existe dans le panier et sa position dans le panier
+
+            let indexProduct = basket.findIndex(
+
+                (el) => el.id === productId && el.color == productColor
+
+            );          
+
+            // Si on trouve le produit
+
+            if (indexProduct != -1) {
+
+                // On vérifie la validité de la quantité saisie
+
+                if (checkQuantity(newQty)) {
+
+                    // On mets à jour la nouvelle quantité dans le panier
+
+                    basket[indexProduct].quantity = parseInt(newQty)
+
+                    // On enregistre le panier
+
+                    saveBasket(basket)
+
+                    // On (re) calcule le panier
+
+                    totalCart()
+
+                }
+
+            } else {
+
+                // Si on ne trouve pas le produit, on renvoie false
+
+                return 
+false;
+
+            } 
+
+        });
+
+    }
+
+    // Action pour chaque bouton supprimer
+
+    // On récupère la liste des boutons "supprimer"
+
+    const buttonsDelete = document.querySelectorAll(".deleteItem")
+
+    // Pour chaque bouton supprimer
+
+    for (let currentButton of buttonsDelete) {
+
+        // Au clic du bouton supprimer
+
+        currentButton.addEventListener("click", function (event) {
+
+            // On récupère le contenu du panier
+
+            let basket = getBasket()
+
+            // On récupère l'identifiant du produit que l'on veut supprimer
+
+            let productId = event.target.closest("article").getAttribute("data-id")
+
+            // On récupère la couleur du produit que l'on veut supprimer
+
+            let productColor = event.target.closest("article").getAttribute("data-color")
+
+            // On recherche si le produit existe dans le panier et sa position dans le panier
+
+            let indexProduct = basket.findIndex(
+
+                (el) => el.id === productId && el.color == productColor
+
+            );
+
+            // Si on trouve le produit
+
+            if (indexProduct != -1) {
+
+                // On supprimer visuellement la ligne de l'article dans la page
+
+                cartItems.removeChild(event.target.closest("article"));
+
+                // On supprimer l'article du panier
+
+                basket.splice(indexProduct, 1)
+
+                // On enregistre le panier
+
+                saveBasket(basket)
+
+                // On (re) calcule le panier
+
+                totalCart()
+
+            } else {
+
+                // Si on ne trouve pas le produit, on renvoie false
+
+                return 
+false;
+
+            } 
+
+        });
+
+    }
+
+    // Actions sur le bouton commander à venir
+
+}

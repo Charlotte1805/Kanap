@@ -362,3 +362,37 @@ false;
     // Actions sur le bouton commander à venir
 
 }
+
+const inputFirstName = document.getElementById("firstName");
+
+const inputLastName = document.getElementById("lastName");
+
+const inputAddress = document.getElementById("address");
+
+const inputCity = document.getElementById("city");
+
+const inputEmail = document.getElementById("email");
+
+// Déclaration des regex pour le formulaire de la page panier
+
+const firstNameRegex = /^[a-zA-Zàâäéèêëïîôöùûüÿç-]+$/i
+
+const lastNameRegex = /^[a-zA-Zàâäéèêëïîôöùûüÿç-]+$/i
+
+const addressRegex = /^[0-9]{1,5}\s+[A-Za-zéèàïêç\-\s]{2,50}$/
+
+const cityRegex = /^(?![\s.]+$)[A-zÀ-ú\s\-']{1,25}$/
+
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+// Déclaration des cibles erreurs pour le formulaire de la page panier
+
+const firstNameErrorMsg = document.querySelector("#firstNameErrorMsg");
+
+const lastNameErrorMsg = document.querySelector("#lastNameErrorMsg");
+
+const addressErrorMsg = document.querySelector("#addressErrorMsg");
+
+const cityErrorMsg = document.querySelector("#cityErrorMsg");
+
+const emailErrorMsg = document.querySelector("#emailErrorMsg");

@@ -359,8 +359,71 @@ false;
 
     }
 
-    // Actions sur le bouton commander à venir
+    // Actions sur le bouton commander 
+        const orderButton = document.getElementById('order')
+        orderButton.addEventListener("click", async function(event) {
+            // On stoppe le submit
+            event.preventDefault()
+            
+            // Initialisation d'un compteur d'erreurs
+            let nbErrors = 0
+    
+            // Récupération des valeurs saisies dans les champs du formulaire
+            let valFirstName = inputFirstName.value
+            let valLastName = inputLastName.value
+            let valAddress = inputAddress.value
+            let valCity = inputCity.value
+            let valEmail = inputEmail.value
+            
+            // On vérifie la saisie et la validité du prénom
+            firstNameErrorMsg.innerHTML = "";
+            if (firstNameRegex.test(valFirstName) == false || valFirstName === null) {
+                firstNameErrorMsg.innerHTML = "Prénom invalide";
+                // On ajoute +1 au compteur d'erreur
+                nbErrors++
+            } 
+            
+            // On vérifie la saisie et la validité du npm
+            lastNameErrorMsg.innerHTML = "";
+            if (lastNameRegex.test(valLastName) == false || valLastName === null ) {
+                lastNameErrorMsg.innerHTML = "Nom invalide";
+                // On ajoute +1 au compteur d'erreur
+                nbErrors++
+            }
+            
+            // On vérifie la saisie et la validité de l'adresse postale
+            addressErrorMsg.innerHTML = "";
+            if (addressRegex.test(valAddress) == false || valAddress === null) {
+                addressErrorMsg.innerHTML = "Adresse postale invalide";
+                // On ajoute +1 au compteur d'erreur
+                nbErrors++
+            } 
+            
+            // On vérifie la saisie et la validité de la ville
+            cityErrorMsg.innerHTML = "";
+            if (cityRegex.test(valCity) == false || valCity === null) {
+                cityErrorMsg.innerHTML = "Ville invalide";
+                // On ajoute +1 au compteur d'erreur
+                nbErrors++
+            }
+            
+            // On vérifie la saisie et la validité de l'adresse email
+            emailErrorMsg.innerHTML = "";
+            if (emailRegex.test(valEmail) == false || valEmail === null) {
+                emailErrorMsg.innerHTML = "Adresse email invalide";
+                // On ajoute +1 au compteur d'erreur
+                nbErrors++
+            }
+    
+            // Si le formulaire est correctement saist, on appelle la fonction sendAPI()
+            if (!nbErrors)
+                sendAPI()
+    
+            // Retourne false si on a des erreurs dans le formulaire
+            return false;
+        });
 
+    
 }
 
 const inputFirstName = document.getElementById("firstName");

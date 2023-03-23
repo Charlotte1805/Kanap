@@ -459,3 +459,89 @@ const addressErrorMsg = document.querySelector("#addressErrorMsg");
 const cityErrorMsg = document.querySelector("#cityErrorMsg");
 
 const emailErrorMsg = document.querySelector("#emailErrorMsg");
+
+// Fonction sendAPI() qui permet l'appel de l'API en méthode POST de la route /products/order
+
+async 
+function sendAPI() {
+
+    // On récupère le contenu du panier
+
+    let basket = getBasket()
+
+    // On initialise un tableau vide
+
+    let products = []
+
+    // Création d'un tableau d'identifiants de produits commandés issus du panier
+
+    for (let product of basket) {
+
+        products.push(product.id);
+
+    }
+
+    // Paramètres pour API : un objet contact et un tableau d'identifiants de produit
+
+    let datas = {
+
+        contact: {
+
+            firstName: valFirstName,
+
+            lastName: valLastName,
+
+            address: valAddress,
+
+            city: valCity,
+
+            email: valEmail
+
+        },
+
+        products: products
+
+    }     
+
+    // Appel de l'API commande
+
+    let order = await 
+
+    fetch("http://localhost:3000/api/products/order", {
+
+        method: "POST",
+
+        body: JSON.stringify( datas ),
+
+        headers: {
+
+            "Content-type": "application/json",
+
+        },
+
+    }).then((res) => res.json())
+
+      .then((order) => {
+
+            return order
+
+        })
+
+        .catch(function (err) {
+
+            console.log(err);
+
+        });
+
+    // Si l'API retourne un numéro de commande, on redirige sur la page confirmation
+
+    if (order.orderId)
+
+        document.location.href = "confirmation.html?orderId=" + order.orderId
+
+    // Si l'API ne retourne rien, on retourne false
+
+    return 
+false;
+
+}

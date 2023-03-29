@@ -4,7 +4,7 @@ const orderId = new URL(window.location.href).searchParams.get("orderId");
 
 // On met à jour le numéro de commande dans le DOM
 
-document.getElementById("orderId").innerText = getOrderId()
+document.getElementById("orderId").innerText = orderId
 
 // On vide le localStorage, le processus est terminé
 

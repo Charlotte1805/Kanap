@@ -145,7 +145,7 @@ function manageEvents() {
 
 	// Action pour champ quantité
 	// On récupère la liste des champs "quantité"
-	const inputsQuantity = document.querySelectorAll(".itemQuantity")
+	let inputsQuantity = document.querySelectorAll(".itemQuantity");
 	// Pour chaque champ input
 	for (let currentInput of inputsQuantity) {
 		// Au changement de valeur
@@ -182,7 +182,7 @@ function manageEvents() {
 
 	// Action pour chaque bouton supprimer
 	// On récupère la liste des boutons "supprimer"
-	const buttonsDelete = document.querySelectorAll(".deleteItem")
+	let buttonsDelete = document.querySelectorAll(".deleteItem")
 	// Pour chaque bouton supprimer
 	for (let currentButton of buttonsDelete) {
 		// Au clic du bouton supprimer
@@ -215,7 +215,7 @@ function manageEvents() {
 	}
 
 	// Actions sur le bouton commander 
-	const orderButton = document.getElementById('order')
+	let orderButton = document.getElementById('order')
 	orderButton.addEventListener("click", async function(event) {
 		// On stoppe le submit
 		event.preventDefault()
@@ -294,6 +294,13 @@ async function sendAPI() {
 	for (let product of basket) {
 		products.push(product.id);
 	}
+	
+	// Récupération des valeurs saisies dans les champs du formulaire
+	let valFirstName = inputFirstName.value
+	let valLastName = inputLastName.value
+	let valAddress = inputAddress.value
+	let valCity = inputCity.value
+	let valEmail = inputEmail.value
 
 	// Paramètres pour API : un objet contact et un tableau d'identifiants de produit
 	let datas = {
@@ -334,4 +341,8 @@ showCartItems()
 
 totalCart()
 
-manageEvents()
+// On laisse un délai de 1s avant de charger les évènements ( le temps que le DOM soit bien chargé avec tous les éléments de l'API )
+
+setTimeout(() => {
+  manageEvents()
+}, "1000");
